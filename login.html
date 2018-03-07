@@ -68,23 +68,24 @@
 		          $.ajax({
 		            type: 'post',
 		            //url: 'http://localhost/appon/citizen_login.php',
-		            url: 'https://appon.000webhostapp.com/citizen_login.php',
+		            url: 'login.php',
 		            cache: false,
 		            data: $('form').serialize(),
 		            success: function (response) {
-		            	console.log(response);
-		            	if (response=="done") {
-		            		//alert('Logging in!');
-		              		location.href = "appointment_request.html";
-		            	}
-		            	if (response=="otp") {
-		            		alert('OTP not verified!');
-		            		location.href = "verify.html";
-		            	}
-		            	if (response=="invalid") {
-		            		alert('Invalid email or password!');
-		            		document.forms["citizen_login_form"]["pass"].value = "";
-		            	}	
+		            	// console.log(response);
+		            	alert(response);
+						// if (response=="done") {
+		            	// 	//alert('Logging in!');
+		              	// 	location.href = "appointment_request.html";
+		            	// }
+		            	// if (response=="otp") {
+		            	// 	alert('OTP not verified!');
+		            	// 	location.href = "verify.html";
+		            	// }
+		            	// if (response=="invalid") {
+		            	// 	alert('Invalid email or password!');
+		            	// 	document.forms["citizen_login_form"]["pass"].value = "";
+		            	// }	
 		              
 		            }
 		          });		
