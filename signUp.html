@@ -1,7 +1,7 @@
 <html>
   <head>
     <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
@@ -22,11 +22,15 @@
   <div class="container" id="cardpanel">
         <div class="card-panel white">
           	<center><img src="img/logo.png" id="logosize"></center>
-				<form name="citizen_signup_form">
+				<form name="user_login_form">
 					<div class="row">
 						<div class="input-field col s12">
-						  <input type="text" id="uname" name="uname"/><br>
-						  <label for="uname">Name</label>
+						  <input type="text" id="fname" name="fname"/><br>
+						  <label for="fname">First Name</label>
+            </div>
+            <div class="input-field col s12">
+						  <input type="text" id="lname" name="lname"/><br>
+						  <label for="lname">Last Name</label>
 						</div>
 						<div class="input-field col s12">
 						  <input type="email" id="uemail" name="uemail"/><br>
@@ -48,12 +52,12 @@
 						  <input type="tel" id="contact" name="contact"/><br>
 						  <label for="contact">Contact</label>
 						</div>
-						<div class="col s12"> 
-						  <button class="btn waves-effect waves-light cyan" type="submit" value="Register Now"/>Register
-							<i class="material-icons right">send</i>
-						  </button>					  
+						<div class="col s12">
+                <button class="btn waves-effect waves-light cyan" type="submit" value="Register Now"/>Register
+                <i class="material-icons right">send</i>
+                </button>					  
 						</div>
-				    </div>
+				  </div>
 				</form>
 		</div>
 	</div>
@@ -61,60 +65,63 @@
     <script>
         $('form').on('submit', function (e) {
           e.preventDefault();
-          var x = document.forms["citizen_signup_form"]["uname"].value;
+          var x = document.forms["user_login_form"]["fname"].value;
           if (x == "") {
-              alert("Name must be filled out");
+              alert("First Name must be filled out");
               return false;
           }
-          var x = document.forms["citizen_signup_form"]["uemail"].value;
+          var x = document.forms["user_login_form"]["lname"].value;
+          if (x == "") {
+              alert("Last Name must be filled out");
+              return false;
+          }
+          var x = document.forms["user_login_form"]["uemail"].value;
           if (x == "") {
               alert("Email must be filled out");
               return false;
           }
           
-          var x = document.forms["citizen_signup_form"]["pass"].value;
+          var x = document.forms["user_login_form"]["pass"].value;
           if (x == "") {
             alert("Password must be filled out");
             return false;
           }
-          var x = document.forms["citizen_signup_form"]["pass"].value; 
-          var y = document.forms["citizen_signup_form"]["confpass"].value;
+          var x = document.forms["user_login_form"]["pass"].value; 
+          var y = document.forms["user_login_form"]["confpass"].value;
           if (x != y) {
-            document.forms["citizen_signup_form"]["pass"].value = "";
-            document.forms["citizen_signup_form"]["confpass"].value = "";
+            document.forms["user_login_form"]["pass"].value = "";
+            document.forms["user_login_form"]["confpass"].value = "";
             alert("Passwords do not match");
             return false;
           }
-          var x = document.forms["citizen_signup_form"]["zipcode"].value;
+          var x = document.forms["user_login_form"]["zipcode"].value;
           if (!x.match(/^\d{6}$/)) {
             alert("Invalid Zipcode");
             return false;
           }
-          var x = document.forms["citizen_signup_form"]["contact"].value;
+          var x = document.forms["user_login_form"]["contact"].value;
           if (!x.match(/^\d{10}$/)) {
             alert("Invalid Contact");
             return false;
           }
           $.ajax({
             type: 'post',
-            //url: 'http://localhost/appon/citi_signup.php',
-            url: 'https://appon.000webhostapp.com/citi_signup.php',
+            url: 'signup.php',
             cache: false,
             data: $('form').serialize(),
             success: function (response) {
               console.log(response);
-              if (response=="done") {
-                alert('Welcome to AppON');
-                location.href = "verify.html";
-              }
-              if (response=="email") {
-                document.forms["citizen_signup_form"]["uemail"].value = "";
+              if (response=="Exists") {
+
+                document.forms["user_login_form"]["uemail"].value = "";
                 alert('Email already exists!');
               }
-              if (response=="contact") {
-                document.forms["citizen_signup_form"]["contact"].value = "";
-                alert('Contact already exists!');
-      
+              if (response=="Success") {
+                alert('Account created successfully!');
+                window.location.href = 'login.html';  
+              }
+              if (response=="Fail") {
+                alert("Error");  
               }
             }
           });
