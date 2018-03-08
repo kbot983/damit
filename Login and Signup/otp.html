@@ -6,8 +6,8 @@
             <div>
                 <input type = "text" id="mobile_no" name="mobile_no" placeholder="Mobile No"></input>
                 <button type="submit" id="submit">Submit</button>
-                <input type = "text" id="otp"></input>
-                <button id="otpsubmit">OTP</button>
+                <input type = "text" id="otp" name="otp"></input>
+                <button type="submit" id="otpsubmit">OTP</button>
             </div>
             <script type="text/javascript">
                 $('#submit').click(function(){
@@ -20,6 +20,19 @@
                         success: function (response) {
                             console.log(response);
                         }       
+                    });
+                });
+                $('#otpsubmit').click(function(){
+                    var mobile_no = $('input[name=mobile_no]').val();
+                    var otp_no = $('input[name=otp]').val();
+                    $.ajax({
+                        type: 'post',
+                        url: 'checkOtp.php',
+                        data: {mobile_no:mobile_no,otp_no: otp_no},
+                        success: function(response){
+                            console.log(response);
+                        }
+
                     });
                 });
             </script>
