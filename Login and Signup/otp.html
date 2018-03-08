@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script src = "../JS/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+            <div>
+                <input type = "text" id="mobile_no" name="mobile_no" placeholder="Mobile No"></input>
+                <button type="submit" id="submit">Submit</button>
+                <input type = "text" id="otp"></input>
+                <button id="otpsubmit">OTP</button>
+            </div>
+            <script type="text/javascript">
+                $('#submit').click(function(){
+                    var mobile_no = $('input[name=mobile_no]').val();
+                    $.ajax({
+                        url: 'checkNo.php',
+                        type: 'post',
+                        cache: false,
+                        data: {number: mobile_no}, // Send userid from here
+                        success: function (response) {
+                            console.log(response);
+                        }       
+                    });
+                });
+            </script>
+    </body>
+</html>

@@ -1,5 +1,5 @@
 <?php
-include "connection.php";
+include "../connection.php";
 
 $first_name = $_POST['fname'];
 $last_name = $_POST['lname'];
@@ -8,8 +8,9 @@ $password= $_POST['pass'];
 $confpass = $_POST['confpass'];
 $zip_code = $_POST['zipcode'];
 $contact = $_POST['contact'];
+$hashed_password = hash('sha256',$password);
 $query1 = "SELECT * FROM `user` where email = '$email'";
-$query2 = "INSERT INTO `user`(`email`, `password`, `first_name`, `last_name`, `mobile_no`, `zipcode`) VALUES ('$email',$password,'$first_name','$last_name','$contact','$zip_code')";
+$query2 = "INSERT INTO `user`(`email`, `password`, `first_name`, `last_name`, `mobile_no`, `zipcode`) VALUES ('$email','$hashed_password','$first_name','$last_name','$contact','$zip_code')";
 
 $result1 = mysqli_query($conn, $query1) or die(mysqli_error($conn));
 if($result1 = mysqli_query($conn, $query1)){
