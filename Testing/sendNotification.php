@@ -6,7 +6,7 @@
 		
 		$fields = array(
 			'app_id' => "75f0c0b1-2034-4259-886a-919b602bc756",
-			'included_segments' => array('All'),
+			'included_segments' => array('Location'),
       'data' => array("foo" => "bar"),
 			'contents' => $content
 		);
