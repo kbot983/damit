@@ -1,0 +1,98 @@
+<html>
+	<head>
+		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+		 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+		 <link rel="stylesheet" href="css/materialize.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script>
+			$(document).ready(function() {
+				$('select').material_select();
+			});
+		</script>
+		<style>
+			#cardpanel{
+				padding-top:3%;
+			}
+			#logosize{
+				height:13%;
+				width:30%;
+			}
+			.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+		</style>
+		
+    </head>  
+		<!-- Body-->
+		
+	<body class="grey lighten-2">
+		<nav class="nav-wrapper  light-blue darken-1">
+			<a href="#" class="brand-logo center ">DamIT</a>
+		</nav>	
+		<div ng-app="">
+		<h1 class="center">{{name}}%</h1>
+			<div class="container" id="cardpanel">
+			    <div class="card-panel white">
+					<form action="#">				  
+								 <div class="input-field col s6">
+									<select>
+									  <option value="" disabled selected>State</option>
+									  <option value="1">Option 1</option>
+									</select>
+									<label>Materialize Select</label>
+								  </div>
+								  <br>
+								  
+								   <div class="input-field col s6">
+									<select>
+									  <option value="" disabled selected>Dam</option>
+									  <option value="1">Option 1</option>
+									  <option value="2">Option 2</option>
+									  <option value="3">Option 3</option>
+									</select>
+									<label>Materialize Select</label>
+								  </div>
+								  <br>
+								
+								<label>Water Level</label>
+							<input type="range" ng-model="name"  min="0" max="100" value="1" class="slider" id="myRange"/>
+							
+								<a class="waves-effect waves-light btn blue "><i class="material-icons left">gavel</i>Simulate</a>
+							</div>
+						</p>
+					  </form>
+				</div></center>
+			</div>
+		
+	</body>
+</html>
