@@ -40,5 +40,7 @@
   print("\n");
 
 
-  // INSERT IN TABLE
+	// INSERT INTO TABLE
+	$query = "INSERT INTO "
+
 ?>

@@ -143,7 +143,6 @@
 					if ($('#Mon').is(":checked"))
 					{
 						mon = 1;
-						console.log("CLicked");
 					}
 					if ($('#Tue').is(":checked"))
 					{
@@ -171,14 +170,13 @@
 					}
 
 
-					console.log($('form').serialize());
-
+					// console.log($('form').serialize());
 					var datastring = "time="+$('#time').val()+"&date="+$('#date').val()+"&nodalid="+"100"+"&mon="+mon+"&tue="+tue+"&wed="+wed+"&thu="+thu+"&fri="+fri+"&sat="+sat+"&sun="+sun;
-					console.log(datastring);
+					// console.log(datastring);
 					$.ajax({
 							type: 'post',
 							//url: 'http://localhost/appon/citizen_login.php',
-							url: 'http://www.occasionz.in/testing/schedule_data.php',
+							url: 'http://occasionz.in/schedulefiles/schedule_create.php',
 							cache: false,
 							data: datastring,
 							success: function (response) {
