@@ -2,8 +2,8 @@
 	<head>
 		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
 		 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-		  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		  <link rel="stylesheet" href="materialize-v0.100.2\materialize\css\materialize.min.css">
+		  <script src="materialize-v0.100.2\materialize\js\materialize.min.js"></script>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<style>
@@ -53,47 +53,27 @@
 			<div class="container" id="cardpanel">
 			    <div class="card-panel white">
 				    <div class="row">
-						<input type="text" Placeholder="Date" class="datepicker" id="date">
+						<input type="text" Placeholder="Date" id="date" class="datepicker">
 					</div>
 					 <div class="row">
-						<input type="text" placeholder="Time" class="timepicker" id="time">
+						<input type="text" placeholder="Time" id="time" class="timepicker">
 					</div>
 					<div class="container">
-						<div class="row">
-						<div class="row">
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Sun"/>
-								<label for="Sun">Sun</label>
-							</div>
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Mon"/>
-								<label for="Mon">Mon</label>
-							</div>
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Tue"/>
-								<label for="Tue">Tue</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Wed"/>
-								<label for="Wed">Wed</label>
-							</div>
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Thu"/>
-								<label for="Thu">Thu</label>
-							</div>
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Fri" value="fri"/>
-								<label for="Fri">Fri</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col">
-								<input type="checkbox" class="filled-in" id="Sat" value="sat"/>
-								<label for="Sat">Sat</label>
-							</div>
-						</div>
+						<div class="weekDays-selector">
+						  <input type="checkbox" id="Sun" class="weekday" />
+						  <label for="Sun"><b>S</b></label>
+						  <input type="checkbox" id="Mon" class="weekday" />
+						  <label for="Mon"><b>M</b></label>
+						  <input type="checkbox" id="Tue" class="weekday" />
+						  <label for="Tue"><b>T</b></label>
+						  <input type="checkbox" id="Wed" class="weekday" />
+						  <label for="Wed"><b>W</b></label>
+						  <input type="checkbox" id="Thu" class="weekday" />
+						  <label for="Thu"><b>T</b></label>
+						  <input type="checkbox" id="Fri" class="weekday" />
+						  <label for="Fri"><b>F</b></label>
+						  <input type="checkbox" id="Sat" class="weekday" />
+						  <label for="Sat"><b>S</b></label>
 						</div>
 					<center>
 						<button class="btn waves-effect waves-light cyan center" type="submit" value="Register Now"/>Schedule
@@ -130,8 +110,38 @@
 						aftershow: function(){} //Function for after opening timepicker
 					  });
 				$(".button-collapse").sideNav();
+			});
 
-				$('form').on('submit', function (e) {
+			$(document).ready(function() {
+
+				$('#date').change(function(){
+    				var nday = document.getElementById('date').value;
+						var d=new Date(nday);
+						var dayno = d.getDay();
+						if(dayno == 0){
+							$('#Sun').prop('checked', true);
+						}
+						if(dayno == 1){
+							$('#Mon').prop('checked', true);
+						}
+						if(dayno == 2){
+							$('#Tue').prop('checked', true);
+						}
+						if(dayno == 3){
+							$('#Wed').prop('checked', true);
+						}
+						if(dayno == 4){
+							$('#Thu').prop('checked', true);
+						}
+						if(dayno == 5){
+							$('#Fri').prop('checked', true);
+						}
+						if(dayno == 6){
+							$('#Sat').prop('checked', true);
+						}
+				});
+
+				$('form').on('submit', function(e){
 					e.preventDefault();
 					var mon = 0;
 					var tue = 0;
@@ -176,7 +186,11 @@
 					$.ajax({
 							type: 'post',
 							//url: 'http://localhost/appon/citizen_login.php',
+<<<<<<< HEAD
 							url: 'http://occasionz.in/schedulefiles/schedule_create.php',
+=======
+							url: 'http://www.occasionz.in/schedulefiles/schedule_create.php',
+>>>>>>> 20f1dfa3508924bde89b92b3ed162a78e3018738
 							cache: false,
 							data: datastring,
 							success: function (response) {
