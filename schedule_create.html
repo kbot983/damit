@@ -1,0 +1,206 @@
+<html>
+	<head>
+		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+		 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		  <link rel="stylesheet" href="materialize-v0.100.2\materialize\css\materialize.min.css">
+		  <script src="materialize-v0.100.2\materialize\js\materialize.min.js"></script>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<style>
+			.cup {
+				background-position: 0 -10px;
+			}
+			#cardpanel{
+				padding-top:15%;
+			}
+			#logosize{
+				height:13%;
+				width:30%;
+			}
+		</style>
+
+    </head>
+
+	<!-- Nav Panel-->
+		<ul id="slide-out" class="side-nav">
+			<li>
+				<div class="userView">
+					<div class="background">
+						<img src="img/back_login.jpg">
+					</div>
+					<a href="#!user"><img class="circle" src="img/prsn.jpg"></a>
+					<a href="#!name"><span class="white-text name">Chintan Popat</span></a>
+					<a href="#!email"><span class="white-text email">email@domain.com</span></a>
+				</div>
+			</li>
+			<li><a href="#!">Profile</a></li>
+			<li><a href="#!">Status<span class="new badge red">4</span></a></li>
+			<li><a href="#!">Instant</a></li>
+			<li><a href="#!">Schedule</a></li>
+			<li><div class="divider"></div></li>
+			<li><a class="subheader">Report an issue</a></li>
+		</ul>
+
+		<!-- Body-->
+
+	<body class="grey darken-2">
+		<nav class="nav-wrapper blue darken-1">
+			<a href="#" data-activates="slide-out" class="button-collapse " ><i class="material-icons">menu</i></a>
+			<a href="#" class="brand-logo">DamIT</a>
+		</nav>
+
+		<form name="Regular_schedule">
+			<div class="container" id="cardpanel">
+			    <div class="card-panel white">
+				    <div class="row">
+						<input type="text" Placeholder="Date" id="date" class="datepicker">
+					</div>
+					 <div class="row">
+						<input type="text" placeholder="Time" id="time" class="timepicker">
+					</div>
+					<div class="container">
+						<center>
+							<div class="weekDays-selector">
+						  <input type="checkbox" id="Sun" class="weekday" />
+						  <label for="Sun"><b>S</b></label>
+						  <input type="checkbox" id="Mon" class="weekday" />
+						  <label for="Mon"><b>M</b></label>
+						  <input type="checkbox" id="Tue" class="weekday" />
+						  <label for="Tue"><b>T</b></label>
+						  <input type="checkbox" id="Wed" class="weekday" />
+						  <label for="Wed"><b>W</b></label>
+						  <input type="checkbox" id="Thu" class="weekday" />
+						  <label for="Thu"><b>T</b></label>
+						  <input type="checkbox" id="Fri" class="weekday" />
+						  <label for="Fri"><b>F</b></label>
+						  <input type="checkbox" id="Sat" class="weekday" />
+						  <label for="Sat"><b>S</b></label>
+						</div>
+					</center>
+					<center>
+						<button class="btn waves-effect waves-light cyan center" type="submit" value="Register Now"/>Schedule
+							<i class="material-icons right">watch_later</i>
+						</button>
+					</center>
+
+
+			    </div>
+				</div>
+
+			</div>
+		</form>
+		<script>
+			//Added document.ready
+			$(document).ready(function(){
+				$('.datepicker').pickadate({
+					selectMonths: true, // Creates a dropdown to control month
+					selectYears: 15, // Creates a dropdown of 15 years to control year,
+					today: 'Today',
+					clear: 'Clear',
+					close: 'Ok',
+					closeOnSelect: false // Close upon selecting a date,
+				  });
+				$('.timepicker').pickatime({
+						default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+						fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+						twelvehour: false, // Use AM/PM or 24-hour format
+						donetext: 'OK', // text for done-button
+						cleartext: 'Clear', // text for clear-button
+						canceltext: 'Cancel', // Text for cancel-button
+						autoclose: false, // automatic close timepicker
+						ampmclickable: true, // make AM PM clickable
+						aftershow: function(){} //Function for after opening timepicker
+					  });
+				$(".button-collapse").sideNav();
+			});
+
+			$(document).ready(function() {
+
+				$('#date').change(function(){
+    				var nday = document.getElementById('date').value;
+						var d=new Date(nday);
+						var dayno = d.getDay();
+						if(dayno == 0){
+							$('#Sun').prop('checked', true);
+						}
+						if(dayno == 1){
+							$('#Mon').prop('checked', true);
+						}
+						if(dayno == 2){
+							$('#Tue').prop('checked', true);
+						}
+						if(dayno == 3){
+							$('#Wed').prop('checked', true);
+						}
+						if(dayno == 4){
+							$('#Thu').prop('checked', true);
+						}
+						if(dayno == 5){
+							$('#Fri').prop('checked', true);
+						}
+						if(dayno == 6){
+							$('#Sat').prop('checked', true);
+						}
+				});
+
+				$('form').on('submit', function(e){
+					e.preventDefault();
+					var mon = 0;
+					var tue = 0;
+					var wed = 0;
+					var thu = 0;
+					var fri = 0;
+					var sat = 0;
+					var sun = 0;
+					if ($('#Mon').is(":checked"))
+					{
+						mon = 1;
+					}
+					if ($('#Tue').is(":checked"))
+					{
+						tue = 1;
+					}
+					if ($('#Wed').is(":checked"))
+					{
+						wed = 1;
+					}
+					if ($('#Thu').is(":checked"))
+					{
+						thu = 1;
+					}
+					if ($('#Fri').is(":checked"))
+					{
+						fri = 1;
+					}
+					if ($('#Sat').is(":checked"))
+					{
+						sat = 1;
+					}
+					if ($('#Sun').is(":checked"))
+					{
+						sun = 1;
+					}
+
+
+					// console.log($('form').serialize());
+					var datastring = "time="+$('#time').val()+"&date="+$('#date').val()+"&nodalid="+"100"+"&mon="+mon+"&tue="+tue+"&wed="+wed+"&thu="+thu+"&fri="+fri+"&sat="+sat+"&sun="+sun;
+					// console.log(datastring);
+					$.ajax({
+							type: 'post',
+							//url: 'http://localhost/appon/citizen_login.php',
+<<<<<<< HEAD
+							url: 'http://occasionz.in/schedulefiles/schedule_create.php',
+=======
+							url: 'http://www.occasionz.in/schedulefiles/schedule_create.php',
+>>>>>>> 20f1dfa3508924bde89b92b3ed162a78e3018738
+							cache: false,
+							data: datastring,
+							success: function (response) {
+								console.log(response);
+							}
+						});
+				});
+			});
+		</script>
+	</body>
+</html>
