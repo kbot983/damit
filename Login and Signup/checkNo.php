@@ -16,10 +16,10 @@ if($result = mysqli_query($conn, $query)){
             $apiKey = urlencode('GwdEObV9VZA-qVJt6nGaqBp8qPjFiVoeHpjR3z8alF');
     	
             // Message details
-            $numbers = $mobile_no;
-            $sender = urlencode('TXTCL');
+            $numbers = array($mobile_no);
+            $sender = urlencode('TXTLCL');
             $message = rawurlencode("Your One Time Password for Dam IT is ".$otp.". This OTP is valid for 5 minutes.");
-            
+            echo $numbers = implode(',', $numbers);
             // Prepare data for POST request
             $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
         

@@ -1,7 +1,7 @@
 <html>
 	<head>
 		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-		 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		 <script type="text/javascript" src="JS/jquery-3.3.1.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
 		 <link rel="stylesheet" href="css/materialize.css">
@@ -65,20 +65,28 @@
 			    <div class="card-panel white">
 					<form action="#">				  
 								 <div class="input-field col s6">
-									<select>
-									  <option value="" disabled selected>State</option>
-									  <option value="1">Option 1</option>
+									<select id="source" name="source">
+										<script type="text/javascript">
+											$.ajax({
+												type: 'post',
+												url:'simulation.php',
+												aync: false,
+												success:function(response){
+													a = JSON.parse(response);
+													a.forEach( e => {
+														$('#source').append("<option>"+ e[0] +"</option>");
+													});
+												}
+											});
+										</script>
 									</select>
 									<label>Materialize Select</label>
 								  </div>
 								  <br>
 								  
 								   <div class="input-field col s6">
-									<select>
-									  <option value="" disabled selected>Dam</option>
-									  <option value="1">Option 1</option>
-									  <option value="2">Option 2</option>
-									  <option value="3">Option 3</option>
+									<select id="status">
+									  <option value="" disabled selected>Dam Name</option>
 									</select>
 									<label>Materialize Select</label>
 								  </div>
@@ -87,12 +95,53 @@
 								<label>Water Level</label>
 							<input type="range" ng-model="name"  min="0" max="100" value="1" class="slider" id="myRange"/>
 							
-								<a class="waves-effect waves-light btn blue "><i class="material-icons left">gavel</i>Simulate</a>
+								<a class="waves-effect waves-light btn blue " id="submit"><i class="material-icons left">gavel</i>Simulate</a>
 							</div>
 						</p>
 					  </form>
 				</div></center>
 			</div>
+		<script>
+			$(document).ready(function(){
+				$('#source').change(function(){
+					var z = $(this);
+					var state = z.val();
+					// FETCH
+					$.ajax({
+						type: 'post',
+						url: 'simulation_dam.php',
+						async:false,
+						data: {state_name: state},
+						success: function(response){
+							$('.suboption').detach();
+							b = JSON.parse(response);
+							b.forEach( e => {
+								console.log(e[0]);
+								$('#status').append(`<option class="suboption">`+ e[0] +`</option>`);
+								$('select').material_select();
+								
+							});
+						}
+					})
+
+				});
+
+				$("#submit").click(function(){
+					var dam_name = $('#status').val();
+					var per = $('#myRange').val();
+					$.ajax({
+						type: 'post',
+						url: 'simulation_update.php',
+						data: {dam_name: dam_name, per: per},
+						success: function(response){
+							console.log(response);
+						}
+					});
+				})
+
+
+			});
 		
+		</script>
 	</body>
 </html>

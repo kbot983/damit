@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title> Add Nodal Officers </title>
+        <script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <input type="file" id="file"></input>
+        <button id="upload" value="Upload">Upload</button>
+        <script type="text/javascript">
+            $(document).on("click", "#upload", function(){
+                var file = $('#file').prop("files")[0];
+                
+                // var form_data = new FormData();                  // Creating object of FormData class
+                // form_data.append("file", file)              // Appending parameter named file with properties of file_field to form_data
+                // // form_data.append("user_id", 123)                 // Adding extra parameters to form_data
+                // $.ajax({
+                //     url: "add_nodal.php",
+                //     dataType: 'script',
+                //     cache: false,
+                //     contentType: false,
+                //     processData: false,
+                //     data: form_data,                         // Setting the data attribute of ajax with file_data
+                //     type: 'post',
+                //     success: function(response){
+                //         console.log(response);
+                //     }
+                // }); 
+            });
+        </script>
+    </body>
+</html>
