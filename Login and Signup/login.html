@@ -17,10 +17,17 @@
 				width:30%;
 			}
 		</style>
-		
-    </head>  
-		 
-	
+		<script>
+			$(document).ready(function(){
+					if(localStorage.getItem("loggedin") == "1"){
+							window.location.href = "../Nodal Officer/mainPage.html";
+					}
+			});
+		</script>
+
+    </head>
+
+
 	<body class="grey lighten-2">
 		<form name="citizen_login_form">
 			<div class="container" id="cardpanel">
@@ -42,19 +49,19 @@
 						<br>
 
 						</div>
-						
-						<div class="col s12"> 
+
+						<div class="col s12">
                       <button class="btn waves-effect waves-light cyan" type="submit" value="Register Now"/>Login
                         <i class="material-icons right">send</i>
-                      </button>					  
+                      </button>
                     </div>
 			        </div>
 			    </div>
 			</div>
 		</form>
 		<script type="text/javascript">
-				$('form').on('submit', function (e) {		
-		        e.preventDefault();		
+				$('form').on('submit', function (e) {
+		        e.preventDefault();
 		        var x = document.forms["citizen_login_form"]["uemail"].value;
           		if (x == "") {
               		alert("Email required!");
@@ -67,21 +74,28 @@
           		}
 		          $.ajax({
 		            type: 'post',
-		            //url: 'http://localhost/appon/citizen_login.php',
-		            url: 'login.php',
+
+		            url: 'http://www.occasionz.in/damit/login.php',
 		            cache: false,
 		            data: $('form').serialize(),
 		            success: function (response) {
 		            	console.log(response);
 		            	if(response == "Nodal"){
-							window.location.href = "../Nodal Officer/mainPage.html";
-						}
-						if(response == "Regional"){
+										var key = document.forms["citizen_login_form"]["uemail"].value;
+		                localStorage.setItem("username",key);
+										localStorage.setItem("loggedin","1");
+										window.location.href = "../Nodal Officer/mainPage.html";
+									}
+									if(response == "Regional"){
 
-						}
-						if(response == "User"){
+									}
+									if(response == "User"){
 
-						}
+									}
+									if(response == "Error"){
+										alert("Invalid emaild or password !");
+										document.forms["citizen_login_form"]["pass"].value = "";
+									}
 						// if (response=="done") {
 		            	// 	//alert('Logging in!');
 		              	// 	location.href = "appointment_request.html";
@@ -93,11 +107,11 @@
 		            	// if (response=="invalid") {
 		            	// 	alert('Invalid email or password!');
 		            	// 	document.forms["citizen_login_form"]["pass"].value = "";
-		            	// }	
-		              
+		            	// }
+
 		            }
-		          });		
+		          });
 		        });
-		</script>        
+		</script>
 	</body>
 </html>

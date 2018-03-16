@@ -3,19 +3,19 @@
     <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
     <script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<style>
-			
+
 			#logosize{
 				height:13%;
 				width:30%;
 			}
 		</style>
-			
-	
+
+
 </head>
 
 <body class="grey lighten-2">
@@ -40,28 +40,28 @@
 						  <input type="password" id="password" name="pass"/><br>
 						  <label for="password">Password</label>
 						</div>
-						<div class="input-field col s12">    
+						<div class="input-field col s12">
 						  <input type="password" id="confpass" name="confpass"/><br>
 						  <label for="confpass">Confirm Password</label>
 						</div>
-						<div class="input-field col s12">                
+						<div class="input-field col s12">
 						  <input type="text" id="zipcode" name="zipcode"/><br>
 						  <label for="zipcode">Zipcode</label>
 						</div>
-						<div class="input-field col s12">                           
+						<div class="input-field col s12">
 						  <input type="tel" id="contact" name="contact"/><br>
 						  <label for="contact">Contact</label>
 						</div>
 						<div class="col s12">
                 <button class="btn waves-effect waves-light cyan" type="submit" value="Register Now"/>Register
                 <i class="material-icons right">send</i>
-                </button>					  
+                </button>
 						</div>
 				  </div>
 				</form>
 		</div>
 	</div>
-          
+
     <script>
         $('form').on('submit', function (e) {
           e.preventDefault();
@@ -80,13 +80,13 @@
               alert("Email must be filled out");
               return false;
           }
-          
+
           var x = document.forms["user_login_form"]["pass"].value;
           if (x == "") {
             alert("Password must be filled out");
             return false;
           }
-          var x = document.forms["user_login_form"]["pass"].value; 
+          var x = document.forms["user_login_form"]["pass"].value;
           var y = document.forms["user_login_form"]["confpass"].value;
           if (x != y) {
             document.forms["user_login_form"]["pass"].value = "";
@@ -117,10 +117,12 @@
               }
               if (response=="Success") {
                 alert('Account created successfully!');
-                window.location.href = 'login.html';  
+                var key = document.forms["user_login_form"]["contact"].value;
+                location.setItem("contact",key);
+                window.location.href = 'login.html';
               }
               if (response=="Fail") {
-                alert("Error");  
+                alert("Error");
               }
             }
           });
