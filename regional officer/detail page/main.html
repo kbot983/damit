@@ -1,0 +1,201 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="materialize.min.css">
+    <!-- <link rel="stylesheet" href="style1.css"> -->
+    <link rel="stylesheet" href="style.css">
+
+    <script src="mixitup.min.js"></script>
+
+    <script src="materialize.min.js"></script>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+</head>
+
+<body>
+    <nav class="nav-wrapper  light-blue darken-1">
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+            <i class="material-icons">menu</i>
+        </a>
+        <a href="#" class="brand-logo center">DamIT</a>
+    </nav>
+    <br>
+    <div class="row">
+        <div class="input-field col l9  s12">
+            <i class="material-icons prefix ">search</i>
+            <input id="icon_prefix autocomplete-input" type="text" data-ref="input-search" class="validate autocomplete">
+            <label for="icon_prefix">Search</label>
+        </div>
+    </div>
+    <div class="container" data-ref="container">
+        <div class="row ">
+            <div class="grey lighten-1">
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $.ajax({
+                            type: 'post',
+                            async: false,
+                            data: { state_id: 1 },
+                            url: "http://occasionz.in/regional/details.php",
+                            success: function (response) {
+                                var a = JSON.parse(response);
+                                console.log(a);
+                                a.forEach(element => {
+                                    // console.log(a);
+                                    $('.grey').append(`<div class="mix ` + element["name"] + `">
+                                <div class="col l3">
+                                    <div class="card-panel center">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="display: none;">
+                                            <symbol id="wave">
+                                                <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
+                                                <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
+                                                <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
+                                                <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
+                                            </symbol>
+                                        </svg>
+                                        <div class="circle">
+                                            <div class="liquid" id="Counter">
+                                                <label>`+ element["percentage"] + `</label>
+                                                <label>%</label>
+                                            </div>
+                                            <div id="water" class="water">
+                                                <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+                                                    <use xlink:href="#wave"></use>
+                                                </svg>
+                                                <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+                                                    <use xlink:href="#wave"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5 class="center">`+ element["name"] + `</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`)
+                                });
+                            }
+                        });
+                        var container = document.querySelector('[data-ref="container"]');
+                        var inputSearch = document.querySelector('[data-ref="input-search"]');
+                        var keyupTimeout;
+
+                        var mixer = mixitup(container, {
+                            animation: {
+                                duration: 350
+                            },
+                            callbacks: {
+                                onMixClick: function () {
+                                    // Reset the search if a filter is clicked
+
+                                    if (this.matches('[data-filter]')) {
+                                        inputSearch.value = '';
+                                    }
+                                }
+                            }
+                        });
+
+                        // Set up a handler to listen for "keyup" events from the search input
+
+                        inputSearch.addEventListener('keyup', function () {
+                            var searchValue;
+                            if (inputSearch.value.length < 3) {
+                                // If the input value is less than 3 characters, don't send
+
+                                searchValue = '';
+                            } else {
+                                searchValue = inputSearch.value.toLowerCase().trim();
+                            }
+
+                            // Very basic throttling to prevent mixer thrashing. Only search
+                            // once 350ms has passed since the last keyup event
+
+                            clearTimeout(keyupTimeout);
+
+                            keyupTimeout = setTimeout(function () {
+                                filterByString(searchValue);
+                            }, 350);
+                        });
+
+                        /**
+                         * Filters the mixer using a provided search string, which is matched against
+                         * the contents of each target's "class" attribute. Any custom data-attribute(s)
+                         * could also be used.
+                         *
+                         * @param  {string} searchValue
+                         * @return {void}
+                         */
+
+                        function filterByString(searchValue) {
+                            if (searchValue) {
+                                // Use an attribute wildcard selector to check for matches
+
+                                mixer.filter('[class*="' + searchValue + '"]');
+                            } else {
+                                // If no searchValue, treat as filter('all')
+
+                                mixer.filter('all');
+                            }
+                        }
+                    });
+                </script>
+                <div class="mix testy">
+                    <div class="col l3">
+                        <div class="card-panel center">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="display: none;">
+                                <symbol id="wave">
+                                    <path d="M420,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C514,6.5,518,4.7,528.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H420z"></path>
+                                    <path d="M420,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C326,6.5,322,4.7,311.5,2.7C304.3,1.4,293.6-0.1,280,0c0,0,0,0,0,0v20H420z"></path>
+                                    <path d="M140,20c21.5-0.4,38.8-2.5,51.1-4.5c13.4-2.2,26.5-5.2,27.3-5.4C234,6.5,238,4.7,248.5,2.7c7.1-1.3,17.9-2.8,31.5-2.7c0,0,0,0,0,0v20H140z"></path>
+                                    <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
+                                </symbol>
+                            </svg>
+                            <div class="circle">
+                                <div class="liquid" id="Counter">
+                                    <label>100</label>
+                                    <label>%</label>
+                                </div>
+                                <div id="water" class="water">
+                                    <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+                                        <use xlink:href="#wave"></use>
+                                    </svg>
+                                    <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+                                        <use xlink:href="#wave"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="center">Test</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fillwater(fillno, showTextContainerId) {
+            var water = document.getElementById("water");
+            var percent = 0;
+            var interval;
+            interval = setInterval(function () {
+                percent++;
+                if (showTextContainerId !== undefined) { document.getElementById(showTextContainerId).innerHTML = percent + '%'; }
+                water.style.transform = 'translate(0' + ',' + (100 - percent) + '%)';
+                if (percent == parseInt(fillno)) {
+                    clearInterval(interval);
+                }
+            }, 60);
+        }
+    </script>
+    <script src="mixitup.min.js"></script>
+    <script>
+
+    </script>
+
+</body>
+
+</html>
