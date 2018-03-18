@@ -1,4 +1,15 @@
-<?PHP
+<?php
+	header("Access-Control-Allow-Origin: *");
+	include "https://www.occasionz.in/connection.php";
+	$dam_id = 1;
+	$player_id = array();
+	$query = "SELECT onesignalid FROM `usermaster` WHERE `dam_id` = $dam_id";
+	$result = mysqli_query($conn, $query);
+	$i = 0;
+	while($res = mysqli_fetch_assoc($result)){
+		$player_id[$i] = array($res["onesignalid"]);
+		$i = $i + 1;		
+	}
 	function sendMessage(){
 		$content = array(
 			"en" => 'Evacuate Immediately!'
@@ -6,11 +17,11 @@
 		
 		$fields = array(
 			'app_id' => "75f0c0b1-2034-4259-886a-919b602bc756",
-			'included_segments' => array('All'),
-      'data' => array("foo" => "bar"),
+			'include_player_ids' => $player_id,
+			'data' => array("foo" => "bar"),
 			'contents' => $content
 		);
-		
+	
 		$fields = json_encode($fields);
     print("\nJSON sent:\n");
     print($fields);
