@@ -26,28 +26,41 @@
 <!-- Nav Panel-->
 <ul id="slide-out" class="side-nav">
     <li>
-        <div class="userView">
+        <div class="userView ">
             <div class="background">
-                <img src="yellow.png">
+                <img src="img/back_login.jpg">
                 <!--img/back_login.jpg-->
             </div>
             <a href="#!user">
-                <img class="circle" src="person.jpg">
+                <img class="circle" src="img/prsn.jpg">
             </a>
             <!--img/prsn.jpg"-->
             <a href="#!name">
-                <span class=" name">Chintan Popat</span>
+                <span class="white-text name">Chintan Popat</span>
             </a>
             <a href="#!email">
-                <span class=" email">email@domain.com</span>
+                <span class="white-text email">email@domain.com</span>
             </a>
         </div>
     </li>
     <li>
-        <a href="#!">Send Notification</a>
+        <a href="#!">Profile</a>
     </li>
     <li>
         <a href="#!">Schedule</a>
+    </li>
+    <li>
+        <a href="#!">Instant</a>
+    </li>
+    <li>
+        <a class='dropdown-button white' href='#' data-activates='dropdown1'>Change Language</a>
+        
+        <ul id='dropdown1' class='dropdown-content '>
+            <li><a href="#!" class="blue-text">Hindi</a></li>
+            <li><a href="#!" class="blue-text">English</a></li>
+            <li><a href="#!" class="blue-text">Gujarati</a></li>
+            <li><a href="#!" class="blue-text">Marathi</a></li>
+        </ul>
     </li>
     <li>
         <div class="divider"></div>
@@ -60,10 +73,10 @@
 
 <body class="grey darken-3">
     <nav class="nav-wrapper light-blue darken-1">
-        <a href="#" data-activates="slide-out" class="button-collapse ">
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
             <i class="material-icons">menu</i>
         </a>
-        <a href="#" class="brand-logo">DamIT</a>
+        <a href="#" class="brand-logo center">DamIT</a>
     </nav>
     <form name="citizen_login_form">
         <div class="container grey darken-3" id="cardpanel">
@@ -80,7 +93,7 @@
                             <path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
                         </symbol>
                     </svg>
-                    <div class="circle">
+                    <div class="circle_new">
                         <div class="liquid" id="Counter">
                             <h3 id= "percentage" class="white-text"></h3>
                         </div>
@@ -119,17 +132,27 @@
             interval = setInterval(function () {
                 percent++;
                 if (showTextContainerId !== undefined) { document.getElementById(showTextContainerId).innerHTML = percent + '%'; }
-                water.style.transform = 'translate(0' + ',' + (100 - percent) + '%)';
-                if (percent == parseInt(fillno)) {
-                    clearInterval(interval);
-                }
-            }, 60);
-        }
+                if(percent>45)
+       {
+       setInterval(blinker, 1000);
+       }        
+               water.style.transform = 'translate(0' + ',' + (100 - percent) + '%)';
+
+               if (percent == parseInt(fillno)) {
+                   clearInterval(interval);
+               }
+           }, 60);
+       }
+       function blinker() {
+    $('.circle_new').css({"animation-name":"blinker","animation-duration":" 1s","animation-timing-function":" linear","animation-iteration-count":"infinite"});
+   
+}
     </script>
     <script>
         //Added document.ready
         $(document).ready(function () {
             $(".button-collapse").sideNav();
+            $('select').material_select();
 
             $.ajax({
                 type: 'post',
@@ -143,7 +166,7 @@
                     $('#btnShow').trigger('click');
                     console.log(a[0]);
                     if(a[0] > 84){
-                        // $('#autoTrigger').css("visibility", "visible");
+                        $('#autoTrigger').css("visibility", "visible");
                         $.ajax({
                             type: 'post',
                             url:'http://occasionz.in/damit/sendNotification.php',

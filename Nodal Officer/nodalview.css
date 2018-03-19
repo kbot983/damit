@@ -3,17 +3,21 @@
             outline: none;
         }
 
-        .circle {
+        .circle_new {
             border-radius: 100%;
-            border: 1px solid black;
+            border: 6px solid transparent;
+           box-shadow: 0 0 15px  #4D6DE3;
             height: 200px;
             width: 200px;
             position: relative;
             overflow: hidden;
             transform: translate(0, 0);
         }
-
-            .circle .liquid {
+         #borderadd
+        {
+            
+        }
+            .circle_new .liquid {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -36,7 +40,7 @@
                 font-size: 64px;
             }
 
-            .circle .water {
+            .circle_new .water {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -46,22 +50,23 @@
                 -webkit-transform: translate(0, 100%);
                 transform: translate(0, 100%);
                 background: #4D6DE3;
+
             }
 
-            .circle .water_wave {
+            .circle_new .water_wave {
                 width: 200%;
                 position: absolute;
                 bottom: 100%;
             }
 
-            .circle .water_wave_back {
+            .circle_new .water_wave_back {
                 right: 0;
                 fill: #C7EEFF;
                 -webkit-animation: wave-back 3s infinite linear;
                 animation: wave-back 3s infinite linear;
             }
 
-            .circle .water_wave_front {
+            .circle_new .water_wave_front {
                 left: 0;
                 fill: #4D6DE3;
                 margin-bottom: -1px;
@@ -99,3 +104,40 @@
         .txt {
             position: absolute;
         }
+   .blink_me {
+    -webkit-animation-name: blinker;
+    border: 6px solid #ED4337;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    border: 6px solid #ED4337;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    border: 6px solid #ED4337;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {  
+    0% {  box-shadow: 0 0 15px  #ED4337; }
+    50% {  box-shadow: 0 0 0px  #ED4337; }
+    100% {  box-shadow: 0 0 15px  #ED4337; }
+}
+
+@-webkit-keyframes blinker {  
+   0% {  box-shadow: 0 0 15px  #ED4337; }
+    50% {  box-shadow: 0 0 0px  #ED4337; }
+    100% {  box-shadow: 0 0 15px  #ED4337; }
+}
+
+@keyframes blinker {  
+    0% {  box-shadow: 0 0 50px #ED4337; }
+    50% {  box-shadow: 0 0 0px  #ED4337; }
+    100% {  box-shadow: 0 0 50px  #ED4337; }
+}
