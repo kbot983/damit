@@ -1,8 +1,8 @@
 <html>
 	<head>
 		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-		 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
-		 <script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>
+		 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		 <!--<script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>-->
 		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -20,8 +20,9 @@
 		<script>
 			$(document).ready(function(){
 					if(localStorage.getItem("loggedin") == "1"){
-							window.location.href = "../Nodal Officer/mainPage.html";
+							window.location.href = "nodalview.html";
 					}
+					$('.modal').modal();
 			});
 		</script>
 
@@ -59,6 +60,12 @@
 			    </div>
 			</div>
 		</form>
+		<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Loading..</h4>
+      <p>Getting your details</p>
+    </div>
+  </div>
 		<script type="text/javascript">
 				$('form').on('submit', function (e) {
 		        e.preventDefault();
@@ -74,17 +81,20 @@
           		}
 		          $.ajax({
 		            type: 'post',
-
 		            url: 'http://www.occasionz.in/damit/login.php',
 		            cache: false,
+								beforeSend: function(){
+									$('#modal1').modal('open');
+								},
 		            data: $('form').serialize(),
 		            success: function (response) {
 		            	console.log(response);
+									$('#modal1').modal('close');
 		            	if(response == "Nodal"){
 										var key = document.forms["citizen_login_form"]["uemail"].value;
 		                localStorage.setItem("username",key);
 										localStorage.setItem("loggedin","1");
-										window.location.href = "../Nodal Officer/mainPage.html";
+										window.location.href = "nodalview.html";
 									}
 									if(response == "Regional"){
 
