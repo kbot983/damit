@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./nodalview.css">
+    <link rel="stylesheet" type="text/css" href="nodalview.css">
     <style>
         .cup {
             background-position: 0 -10px;
@@ -22,6 +22,15 @@
             width: 30%;
         }
     </style>
+    <script>
+			$(document).ready(function(){
+					if(localStorage.getItem("loggedin") == "0"){
+							window.location.href = "login.html";
+					}
+
+
+			});
+		</script>
 </head>
 <!-- Nav Panel-->
 <ul id="slide-out" class="side-nav">
@@ -54,7 +63,7 @@
     </li>
     <li>
         <a class='dropdown-button white' href='#' data-activates='dropdown1'>Change Language</a>
-        
+
         <ul id='dropdown1' class='dropdown-content '>
             <li><a href="#!" class="blue-text">Hindi</a></li>
             <li><a href="#!" class="blue-text">English</a></li>
@@ -66,7 +75,7 @@
         <div class="divider"></div>
     </li>
     <li>
-        <a class="subheader">Report an issue</a>
+        <a class="waves-effect waves-light btn btn-flat" id="logout">Logout</a>
     </li>
 </ul>
 <!-- Body-->
@@ -132,10 +141,10 @@
             interval = setInterval(function () {
                 percent++;
                 if (showTextContainerId !== undefined) { document.getElementById(showTextContainerId).innerHTML = percent + '%'; }
-                if(percent>45)
+                if(percent>90)
        {
        setInterval(blinker, 1000);
-       }        
+       }
                water.style.transform = 'translate(0' + ',' + (100 - percent) + '%)';
 
                if (percent == parseInt(fillno)) {
@@ -145,7 +154,7 @@
        }
        function blinker() {
     $('.circle_new').css({"animation-name":"blinker","animation-duration":" 1s","animation-timing-function":" linear","animation-iteration-count":"infinite"});
-   
+
 }
     </script>
     <script>
@@ -153,22 +162,24 @@
         $(document).ready(function () {
             $(".button-collapse").sideNav();
             $('select').material_select();
-
+            var datastring = "email="+localStorage.getItem('username');
             $.ajax({
                 type: 'post',
                 async: false,
+                data: datastring,
                 url: 'http://www.occasionz.in/damit/mainPage.php',
                 success: function (response) {
                     a = JSON.parse(response);
                     $('#percentage').text(a[0]+"%");
                     $('#total').text( a[1]+"M");
-                    $('#txtLevel').val(a[0]); 
+                    $('#txtLevel').val(a[0]);
                     $('#btnShow').trigger('click');
                     console.log(a[0]);
                     if(a[0] > 84){
-                        $('#autoTrigger').css("visibility", "visible");
+                        //$('#autoTrigger').css("visibility", "visible");
                         $.ajax({
                             type: 'post',
+                            data: datastring,
                             url:'http://occasionz.in/damit/sendNotification.php',
                             async: false,
                             success: function(response){
@@ -180,7 +191,19 @@
             });
 
 
+
         });
+    </script>
+    <script>
+    $(document).ready(function(){
+      $("#logout").click(function(){
+        //e.preventDefault();
+        console.log("click logout");
+        localStorage.removeItem("username");
+        localStorage.setItem("loggedin","0");
+        window.location.href = "login.html";
+      });
+    });
     </script>
 </body>
 
