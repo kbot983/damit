@@ -1,57 +1,156 @@
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 	<head>
-		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-		 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		  <link rel="stylesheet" href="materialize-v0.100.2\materialize\css\materialize.min.css">
-		  <script src="materialize-v0.100.2\materialize\js\materialize.min.js"></script>
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<style>
-			.cup {
-				background-position: 0 -10px;
-			}
-			#cardpanel{
-				padding-top:15%;
-			}
-			#logosize{
-				height:13%;
-				width:30%;
-			}
-		</style>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<link rel="stylesheet" href="materialize-v0.100.2/materialize/css/materialize.min.css">
+		<link rel="stylesheet" href="css/monthly.css">
+	 <script src="materialize-v0.100.2/materialize/js/materialize.min.js"></script>
+	 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    </head>
+		<script>
+			//Added document.ready
+			$(document).ready(function(){
+				$(".button-collapse").sideNav();
+				$('.modal').modal();
+			});
+		</script>
+<style type="text/css">
+		.modalBackColor{
+			background-color: #2085b3;
+		}
+		.weekDays-selector input[type=checkbox] + label {
+			    display: inline-block;
+			    /* background: #dddddd; */
+			    height: 35px;
+			    width: 34px;
+		}
+		#closeIcon{
+			padding: 3px;
+		}
+		.modal.bottom-sheet {
+		    max-height: 93%;
+        }
+		.monthly-header{
+			background-color: #4887c3;
+		}
+		i.left {
+    		margin-right: 11px;
+		}
+		@media (max-height: 700px) {
+			.sticky {
+				position: relative;
+			}
+		}
+		@media (max-width: 600px) {
+			.resize {
+				display: none;
+			}
+		}
+	</style>
 
-	<!-- Nav Panel-->
-		<ul id="slide-out" class="side-nav">
-			<li>
-				<div class="userView">
-					<div class="background">
-						<img src="img/back_login.jpg">
-					</div>
-					<a href="#!user"><img class="circle" src="img/prsn.jpg"></a>
-					<a href="#!name"><span class="white-text name">Chintan Popat</span></a>
-					<a href="#!email"><span class="white-text email">email@domain.com</span></a>
+	</head>
+<!-- Nav Panel-->
+<ul id="slide-out" class="side-nav">
+    <li>
+        <div class="userView ">
+            <div class="background">
+                <img src="img/back_login.jpg">
+                <!--img/back_login.jpg-->
+            </div>
+            <a href="#!user">
+                <img class="circle" src="img/prsn.jpg">
+            </a>
+            <!--img/prsn.jpg"-->
+            <a href="#!name">
+                <span class="white-text name">Chintan Popat</span>
+            </a>
+            <a href="#!email">
+                <span class="white-text email">email@domain.com</span>
+            </a>
+        </div>
+    </li>
+    <li>
+        <a href="#!">Profile</a>
+    </li>
+
+    <li>
+        <a class='dropdown-button white' href='#' data-activates='dropdown1'>Change Language</a>
+
+        <ul id='dropdown1' class='dropdown-content '>
+            <li><a href="#!" class="blue-text">Hindi</a></li>
+            <li><a href="#!" class="grey lighten-2 blue-text">English</a></li>
+            <li><a href="#!" class="blue-text">Gujarati</a></li>
+            <li><a href="#!" class="blue-text">Marathi</a></li>
+        </ul>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li>
+        <a class="subheader">Report an issue</a>
+    </li>
+</ul>
+<!-- Body-->
+
+<body class="grey darken-3">
+    <nav class="nav-wrapper light-blue darken-1">
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+            <i class="material-icons">menu</i>
+        </a>
+        <a href="#" class="brand-logo center">DamIT</a>
+    </nav>
+
+
+
+
+
+		<div class="page center">
+			<br>
+				<h4 class="white-text"></h4>
+			<br>
+			<div style="width:95%; max-width:600px; display:inline-block;">
+				<div class="monthly center" id="mycalendar"></div>
+			</div>
+			<br><br>
+			<div class="row">
+				<div class="col s6">
+					<a class="waves-effect waves-light btn modal-trigger blue" href="#DownModal"><i class="material-icons left">schedule</i>schedule</a>
 				</div>
-			</li>
-			<li><a href="#!">Profile</a></li>
-			<li><a href="#!">Status<span class="new badge red">4</span></a></li>
-			<li><a href="#!">Instant</a></li>
-			<li><a href="#!">Schedule</a></li>
-			<li><div class="divider"></div></li>
-			<li><a class="subheader">Report an issue</a></li>
-		</ul>
+				<div class="col s6">
+					<a class="waves-effect waves-light btn  modal-trigger blue" href="#ConfirmModal"><i class="material-icons left">restore</i>restore</a>
+				</div>
+			</div>
+		</div>
 
-		<!-- Body-->
 
-	<body class="grey darken-2">
-		<nav class="nav-wrapper blue darken-1">
-			<a href="#" data-activates="slide-out" class="button-collapse " ><i class="material-icons">menu</i></a>
-			<a href="#" class="brand-logo">DamIT</a>
-		</nav>
+<!-- @@@@@@@@@@@@@@@@@@@  Confirm Modal @@@@@@@@@@@@@@@@@@@ -->
 
-		<form name="Regular_schedule">
-			<div class="container" id="cardpanel">
-			    <div class="card-panel white">
+<div id="ConfirmModal" class="modal">
+    <div class="modal-content">
+      <h4>Confirm</h4>
+      <p class="center">The Schedule set will be cleared. <br>Are You Sure ?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+
+<!-- @@@@@@@@@@@@@@@@@@@  Down Modal @@@@@@@@@@@@@@@@@@@ -->
+
+
+
+
+
+  <div id="DownModal" class="modal bottom-sheet">
+    <div class="modal-content ModalBackColor">
+      <h4 class="white-text">Schedule
+      	<a href="#!" class="modal-action modal-close waves-effect right circle red white-text"><i class="material-icons" id="closeIcon">close</i></a>
+      </h4>
+      	    <div class="card-panel white">
+						<form>
 				    <div class="row">
 						<input type="text" Placeholder="Date" id="date" class="datepicker">
 					</div>
@@ -59,8 +158,7 @@
 						<input type="text" placeholder="Time" id="time" class="timepicker">
 					</div>
 					<div class="container">
-						<center>
-							<div class="weekDays-selector">
+						<div class="weekDays-selector">
 						  <input type="checkbox" id="Sun" class="weekday" />
 						  <label for="Sun"><b>S</b></label>
 						  <input type="checkbox" id="Mon" class="weekday" />
@@ -76,20 +174,23 @@
 						  <input type="checkbox" id="Sat" class="weekday" />
 						  <label for="Sat"><b>S</b></label>
 						</div>
-					</center>
-					<center>
-						<button class="btn waves-effect waves-light cyan center" type="submit" value="Register Now"/>Schedule
-							<i class="material-icons right">watch_later</i>
-						</button>
-					</center>
+						<center>
+							<button class="btn waves-effect waves-light cyan center" type="submit" value="Register Now"/>Schedule
+								<i class="material-icons right">watch_later</i>
+							</button>
+						</center>
+					</div>
+				</form>
+   			</div>
+  </div>
 
 
-			    </div>
-				</div>
 
-			</div>
-		</form>
-		<script>
+
+
+
+<script type="text/javascript" src="js/monthly.js"></script>
+<script>
 			//Added document.ready
 			$(document).ready(function(){
 				$('.datepicker').pickadate({
@@ -100,6 +201,7 @@
 					close: 'Ok',
 					closeOnSelect: false // Close upon selecting a date,
 				  });
+
 				$('.timepicker').pickatime({
 						default: 'now', // Set default time: 'now', '1:30AM', '16:30'
 						fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
@@ -111,7 +213,6 @@
 						ampmclickable: true, // make AM PM clickable
 						aftershow: function(){} //Function for after opening timepicker
 					  });
-				$(".button-collapse").sideNav();
 			});
 
 			$(document).ready(function() {
@@ -155,6 +256,7 @@
 					if ($('#Mon').is(":checked"))
 					{
 						mon = 1;
+						console.log("CLicked");
 					}
 					if ($('#Tue').is(":checked"))
 					{
@@ -182,17 +284,14 @@
 					}
 
 
-					// console.log($('form').serialize());
-					var datastring = "time="+$('#time').val()+"&date="+$('#date').val()+"&nodalid="+"100"+"&mon="+mon+"&tue="+tue+"&wed="+wed+"&thu="+thu+"&fri="+fri+"&sat="+sat+"&sun="+sun;
-					// console.log(datastring);
+					console.log($('form').serialize());
+
+					var datastring = "time="+$('#time').val()+"&date="+$('#date').val()+"&email_id="+localStorage.getItem('username')+"&mon="+mon+"&tue="+tue+"&wed="+wed+"&thu="+thu+"&fri="+fri+"&sat="+sat+"&sun="+sun;
+					console.log(datastring);
 					$.ajax({
 							type: 'post',
 							//url: 'http://localhost/appon/citizen_login.php',
-<<<<<<< HEAD
-							url: 'http://occasionz.in/schedulefiles/schedule_create.php',
-=======
 							url: 'http://www.occasionz.in/schedulefiles/schedule_create.php',
->>>>>>> 20f1dfa3508924bde89b92b3ed162a78e3018738
 							cache: false,
 							data: datastring,
 							success: function (response) {
@@ -202,5 +301,33 @@
 				});
 			});
 		</script>
+<script type="text/javascript">
+	$(window).load( function() {
+
+		$('#mycalendar').monthly({
+			mode: 'event',
+			//jsonUrl: 'events.json',
+			//dataType: 'json'
+			xmlUrl: 'events.xml'
+		});
+
+		$('#mycalendar2').monthly({
+			mode: 'picker',
+			target: '#mytarget',
+			setWidth: '250px',
+			startHidden: true,
+			showTrigger: '#mytarget',
+			stylePast: true,
+			disablePast: true
+		});
+
+	});
+	$(document).ready(function(){
+				$(".button-collapse").sideNav();
+			});
+</script>
+
+
+
 	</body>
 </html>
