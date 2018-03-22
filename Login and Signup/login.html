@@ -1,13 +1,13 @@
 <html>
 	<head>
 		 <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-		 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		 <script type="text/javascript" src="js/jquery.min.js"></script>
 		 <!--<script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>-->
-		 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+		 <link rel="stylesheet" href="materialize-v0.100.2/materialize/css/materialize.min.css">
+     <script src="materialize-v0.100.2/materialize/js/materialize.min.js"></script>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     	  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+<!--     	  <link rel="stylesheet" href="loading.css"> -->
 		<style>
 			#cardpanel{
 				padding-top:20%;
@@ -16,6 +16,26 @@
 				height:13%;
 				width:30%;
 			}
+			#L6
+			{
+    			height:15%;
+ 				width:15%;
+ 			 }
+ 			 .bg-color
+ 			 {
+ 			 	background:#333;
+ 			 }
+ 			 .modal
+ 			 {
+ 			 	background-color:#222;
+ 			 	border-radius: 20px;
+ 			 	margin-top: 40%;
+ 			 }
+ 			 #imgclass
+ 			 {
+ 			 	margin-left: 5%;
+ 			 	overflow: hidden;
+ 			 }
 		</style>
 		<script>
 			$(document).ready(function(){
@@ -29,7 +49,7 @@
     </head>
 
 
-	<body class="grey lighten-2">
+	<body class="bg-color">
 		<form name="citizen_login_form">
 			<div class="container" id="cardpanel">
 			    <div class="card-panel white">
@@ -62,8 +82,9 @@
 		</form>
 		<div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Loading..</h4>
-      <p>Getting your details</p>
+
+				    <img src="img/drop.gif" height="auto" width="250px" alt="drop" id="imgclass">
+
     </div>
   </div>
 		<script type="text/javascript">
@@ -84,12 +105,12 @@
 		            url: 'http://www.occasionz.in/damit/login.php',
 		            cache: false,
 								beforeSend: function(){
-									$('#modal1').modal('open');
+									$('.modal').modal('open');
 								},
 		            data: $('form').serialize(),
 		            success: function (response) {
 		            	console.log(response);
-									$('#modal1').modal('close');
+									$('.modal').modal('close');
 		            	if(response == "Nodal"){
 										var key = document.forms["citizen_login_form"]["uemail"].value;
 		                localStorage.setItem("username",key);
