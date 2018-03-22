@@ -136,10 +136,10 @@
 									</svg>
 									<div class="circle modalad">
 										<div class="liquid" id="Counter">
-											<label id="waterLevelDenoter"></label>
+											<label id="waterLevelDenoter`+ element["dam_id"] + `"></label>
 											<label>%</label>
 										</div>
-										<div id="water" class="water">
+										<div id="water` + element["dam_id"] + `" class="water">
 											<svg viewBox="0 0 560 20" class="water_wave water_wave_back">
 												<use xlink:href="#wave"></use>
 											</svg>
@@ -150,23 +150,23 @@
 									</div>
 
 	<div>
-        <input type="text" id="txtLevel" style="display:none;" placeholder="Select Water Level"/>
-        <input type="button" id="btnShow"  style="display:none;" value="Show" onclick="fillwater(document.getElementById('txtLevel').value)"/>
+        <input type="text" id="txtLevel`+ element["dam_id"] + `" style="display:none;" placeholder="Select Water Level"/>
+        <input type="button" id="btnShow`+ element["dam_id"] + `"  style="display:none;" value="Show" onclick="fillwater(document.getElementById('txtLevel` + element["dam_id"] + `').value, ` + element["dam_id"] + `)"/>
     </div>
 
 
 									<!--  *******************  SVG END ***********************-->
 
-									<div id="WaterReleased">
+									<div id="WaterReleased`+ element["dam_id"] + `">
 										Water Released: 
 									</div>
 									<br>
 									Approved By:
-									<div id="ApprovedBy" class="chip">
+									<div id="ApprovedBy`+ element["dam_id"] + `" class="chip">
 									</div>
 									<br>
 									<br> 
-									<div id="Notified">
+									<div id="Notified`+ element["dam_id"] + `">
 										Users Notified: 
 									</div>
 									<br> Users Engaged : 83,46,238
@@ -236,6 +236,7 @@
 													}
 												});
 												canvas.onclick = function (evt) {
+
 													var firstPoint = myChart.getElementAtEvent(evt)[0];
 													if (firstPoint) {
 														var label = myChart.data.labels[firstPoint._index];
@@ -245,20 +246,22 @@
 													console.log(label);
 													var WaterLevelPercentage = (value * 100) / points[1];
 													console.log(WaterLevelPercentage);
-													$('#waterLevelDenoter').text(WaterLevelPercentage);
-													$('#txtLevel').val(WaterLevelPercentage);
+													$('#waterLevelDenoter' + element["dam_id"]).text(WaterLevelPercentage);
+													$('#txtLevel' + element['dam_id']).val(WaterLevelPercentage);
 													// console.log($('#textLevel').);
-													$('#btnShow').trigger("click");
+													$('#btnShow' + element['dam_id']).trigger("click");
+
 													$.ajax({
 														type: 'post',
 														url: 'http://www.occasionz.in/damit/gettingInchargeNameAndStuff.php',
 														data: { 'dam_id': element['dam_id'], 'month': label },
 														success: function (response) {
+															console.log(response);
 															var morePoints = JSON.parse(response);
 															console.log(morePoints);
-															$('#WaterReleased').text("Water Released: " + morePoints["date"]);
-															$('#ApprovedBy').text(morePoints["name"]); // IMAGE???? ADD IT 
-															$('#Notified').text("Users Notified: " + morePoints["sent_count"]);
+															$('#WaterReleased' + element["dam_id"]).text("Water Released: " + morePoints["date"]);
+															$('#ApprovedBy' + element["dam_id"]).text(morePoints["name"]); // IMAGE???? ADD IT 
+															$('#Notified' + element["dam_id"]).text("Users Notified: " + morePoints["sent_count"]);
 														}
 													});
 
@@ -266,6 +269,7 @@
 											}
 										});
 									});
+
 								});
 							}
 						});
@@ -436,8 +440,10 @@
 
 
 	<script>
-		function fillwater(fillno, showTextContainerId) {
-			var water = document.getElementById("water");
+		function fillwater(fillno, dam_id, showTextContainerId) {
+			console.log(fillno);
+			
+			var water = document.getElementById("water" + dam_id);
 			var percent = 0;
 			var interval;
 			interval = setInterval(function () {

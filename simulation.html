@@ -72,8 +72,8 @@
 							<script type="text/javascript">
 								$.ajax({
 									type: 'post',
-									url: 'damit/simulation/simulation.php',
-									aync: false,
+									url: 'http://occasionz.in/damit/simulation/simulation.php',
+									async: false,
 									success: function (response) {
 										a = JSON.parse(response);
 										console.log(a);
@@ -115,7 +115,7 @@
 				// FETCH
 				$.ajax({
 					type: 'post',
-					url: 'damit/simulation/simulation_dam.php',
+					url: 'http://occasionz.in/damit/simulation/simulation_dam.php',
 					async: false,
 					data: { state_name: state },
 					success: function (response) {
@@ -135,9 +135,10 @@
 			$("#submit").click(function () {
 				var dam_name = $('#status').val();
 				var per = $('#myRange').val();
+				console.log(dam_name);
 				$.ajax({
 					type: 'post',
-					url: 'damit/simulation/simulation_update.php',
+					url: 'http://occasionz.in/damit/simulation/simulation_update.php',
 					data: { dam_name: dam_name, per: per },
 					success: function (response) {
 						console.log(response);
