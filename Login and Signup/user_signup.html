@@ -1,0 +1,178 @@
+<html>
+
+<head>
+	<!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+	<script type="text/javascript" src="../JS/jquery-3.3.1.min.js"></script>
+
+	<link rel="stylesheet" href="../css/materialize.css">
+	<script src="../JS/materialize.min.js"></script>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script>
+		$(document).ready(function () {
+			$('select').material_select();
+		});
+	</script>
+	<style>
+		#cardpanel {
+			padding-top: 10%;
+		}
+
+		#logosize {
+			height: 13%;
+			width: 30%;
+		}
+
+		.slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 15px;
+			border-radius: 5px;
+			background: #d3d3d3;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 25px;
+			height: 25px;
+			border-radius: 50%;
+			background: #4CAF50;
+			cursor: pointer;
+		}
+
+		.slider::-moz-range-thumb {
+			width: 25px;
+			height: 25px;
+			border-radius: 50%;
+			background: #4CAF50;
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+<!-- Body-->
+
+<body class="grey lighten-2">
+	<nav class="nav-wrapper  light-blue darken-1">
+		<a href="#" class="brand-logo center ">DamIT</a>
+	</nav>
+	<div class="container" id="cardpanel">
+		<div class="card-panel white">
+			<div class="center">
+				<img src="img/logo.png" id="logosize">
+			</div>
+			<br>
+			<form action="#">
+				<div class="input-field col s6">
+					<select id="source" name="source">
+						<script type="text/javascript">
+							$.ajax({
+								type: 'post',
+								url: 'http://occasionz.in/damit/simulation/simulation.php',
+								async: false,
+								success: function (response) {
+									a = JSON.parse(response);
+									console.log(a);
+									a.forEach(e => {
+										$('#source').append("<option>" + e[0] + "</option>");
+									});
+								}
+							});
+						</script>
+					</select>
+					<label>Select State</label>
+				</div>
+				<br>
+
+				<div class="input-field col s6">
+					<select id="status">
+						<option value="" disabled selected>Dam</option>
+					</select>
+					<label>Select Dam</label>
+				</div>
+				<br>
+
+				<div class="input-field col s6">
+					<select id="lang">
+						<option value="" disabled selected>Language</option>
+						<option value="1">Hindi</option>
+						<option value="2">English</option>
+						<option value="3">Marathi</option>
+						<option value="3">Tamil</option>
+						<option value="3">Telegu</option>
+						<option value="3">Gujarati</option>
+					</select>
+					<label>Select Language</label>
+				</div>
+				<br>
+
+
+				<div class="input-field col s6">
+					<input type="text" id="emerg"></input>
+					<label>Emergency Contact Number</label>
+				</div>
+				<a class="waves-effect waves-light btn blue right " id="submit">
+					<i class="material-icons left">send</i>Done</a>
+				<br>
+				<br>
+		</div>
+		</p>
+		</form>
+	</div>
+	</center>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$('#source').change(function () {
+				var z = $(this);
+				var state = z.val();
+				// FETCH
+				$.ajax({
+					type: 'post',
+					url: 'http://occasionz.in/damit/simulation/simulation_dam.php',
+					async: false,
+					data: { state_name: state },
+					success: function (response) {
+						$('.suboption').detach();
+						b = JSON.parse(response);
+						b.forEach(e => {
+							console.log(e[0]);
+							console.log(e);
+							$('#status').append(`<option class="suboption">` + e[0] + `</option>`);
+							$('select').material_select();
+
+						});
+					}
+				})
+
+			});
+
+			$("#submit").click(function () {
+				var dam_name = $('#status').val();
+				var per = $('#myRange').val();
+				var language = $('#lang').val();
+				var emergency = $('#emerg').val();
+				var email = "user@g.com"
+				console.log(dam_name);
+				$.ajax({
+					type: 'post',
+					url: 'http://occasionz.in/damit/signUp2.php',
+					data: { email : email, language : language, emergency : emergency, dam_name : dam_name},
+					success: function (response) {
+						console.log(response);
+					}
+				});
+			})
+
+
+		});
+
+	</script>
+</body>
+
+</html>
