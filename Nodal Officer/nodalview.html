@@ -2,12 +2,12 @@
 
 <head>
     <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <link rel="stylesheet" href="materialize-v0.100.2/materialize/css/materialize.min.css">
+    <script src="materialize-v0.100.2/materialize/js/materialize.min.js"></script>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="nodalview.css">
+    <link rel="stylesheet" type="text/css" href="css/nodalview.css">
     <style>
         .cup {
             background-position: 0 -10px;
@@ -55,12 +55,12 @@
     <li>
         <a href="#!">Profile</a>
     </li>
-    <li>
+<!--     <li>
         <a href="#!">Schedule</a>
     </li>
     <li>
         <a href="#!">Instant</a>
-    </li>
+    </li> -->
     <li>
         <a class='dropdown-button white' href='#' data-activates='dropdown1'>Change Language</a>
 
@@ -90,9 +90,10 @@
     <form name="citizen_login_form">
         <div class="container grey darken-3" id="cardpanel">
             <center>
-                <h3 id="total" class="white-text"></h3>
+
                 <br>
                 <br>
+                <i id="refresh-button" class="material-icons locate">refresh</i>
                 <div class="cup">
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="display: none;">
                         <symbol id="wave">
@@ -119,6 +120,7 @@
                         <input type="text" id="txtLevel" value="50" style="display: none;" placeholder="Select Water Level"/>
                         <button type="button" id="btnShow" value="Show" style="display: none;" onclick="fillwater(document.getElementById('txtLevel').value)">Show</button>
                     </div>
+                     <!-- <i class="material-icons locate">settings_backup_restore</i> -->
                 </div>
                 <br>
                 <br>
@@ -127,9 +129,19 @@
 
         </div>
         <center>
-            <button class="btn waves-effect waves-light" id="autoTrigger" style="background-color:#039be5; visibility:hidden;" type="submit" name="action">Send Notification
+          <h3 id="total" class="white-text"></h3>
+            <button class="btn waves-effect waves-light btn-large" id="autoTrigger" style="background-color:#039be5;display: none " type="submit" name="action">Send Notification
                 <i class="material-icons right">send</i>
             </button>
+        </center>
+        <center style="margin-top:5%;">
+            <a class="btn waves-effect waves-light btn-large m6" id="autoTrigger" style="background-color:#039be5;" href = 'schedule_create.html'>Schedule
+                 <i class="material-icons right">schedule</i>
+            </a>
+
+             <a class="btn waves-effect waves-light btn-large m6" id="autoTrigger" style="background-color:#039be5;" href="Dynamic Message.html">Instant
+                 <i class="material-icons right">flash_on</i>
+            </a>
         </center>
         </div>
     </form>
@@ -138,8 +150,10 @@
             var water = document.getElementById("water");
             var percent = 0;
             var interval;
+
             interval = setInterval(function () {
                 percent++;
+
                 if (showTextContainerId !== undefined) { document.getElementById(showTextContainerId).innerHTML = percent + '%'; }
                 if(percent>90)
        {
@@ -156,6 +170,9 @@
     $('.circle_new').css({"animation-name":"blinker","animation-duration":" 1s","animation-timing-function":" linear","animation-iteration-count":"infinite"});
 
 }
+    // function refresher(){
+    //     $('.locate').css({"animation-name":"refresh","animation-duration":" 1s","animation-timing-function":" linear","animation-iteration-count":"infinite"});
+    // }
     </script>
     <script>
         //Added document.ready
@@ -175,22 +192,31 @@
                     $('#txtLevel').val(a[0]);
                     $('#btnShow').trigger('click');
                     console.log(a[0]);
-                    if(a[0] > 84){
-                        //$('#autoTrigger').css("visibility", "visible");
-                        $.ajax({
-                            type: 'post',
-                            data: datastring,
-                            url:'http://occasionz.in/damit/sendNotification.php',
-                            async: false,
-                            success: function(response){
-                                console.log(response);
-                            }
-                        });
-                    }
                 }
             });
 
-
+              $("#refresh-button").click(function(){
+                console.log("clicked");
+                $.ajax({
+                    type: 'post',
+                    async: false,
+                    data: datastring,
+                    beforeSend: function() {
+                      console.log("beforeSend");
+                      $("#refresh-button").addClass("animate-refresh");
+                    },
+                    url: 'http://www.occasionz.in/damit/mainPage.php',
+                    success: function (response) {
+                        a = JSON.parse(response);
+                        $('#percentage').text(a[0]+"%");
+                        $('#total').text( a[1]+"M");
+                        $('#txtLevel').val(a[0]);
+                        $('#btnShow').trigger('click');
+                        console.log(a[0]);
+                      $("#refresh-button").removeClass("animate-refresh");
+                  }
+            });
+          });
 
         });
     </script>
