@@ -110,11 +110,34 @@
 					<label>Select Language</label>
 				</div>
 				<br>
-
-
-				<div class="input-field col s6">
-					<input type="text" id="emerg"></input>
-					<label>Emergency Contact Number</label>
+				<div id="emergencyRow">
+					<div class="row">
+						<div class="input-field col s9">
+							<input type="text" id="emerg"></input>
+							<label>Emergency Number</label>
+						</div>
+						<a class="btn-floating btn-small waves-effect waves-light teal" id="numberAdder">
+							<i class="material-icons">add</i>
+						</a>
+					</div>
+					<div class="row" style="display: none;" id="emerg1">
+						<div class="input-field col s9">
+							<input type="text" id="emergText1"></input>
+							<label>Emergency Number 2</label>
+						</div>
+						<a class="btn-floating btn-small waves-effect waves-light red" id="numberAdder1">
+							<i class="material-icons">close</i>
+						</a>
+					</div>
+					<div class="row" style="display: none;" id="emerg2">
+						<div class="input-field col s9">
+							<input type="text" id="emergText2"></input>
+							<label>Emergency Number 3</label>
+						</div>
+						<a class="btn-floating btn-small waves-effect waves-light red" id="numberAdder2">
+							<i class="material-icons">close</i>
+						</a>
+					</div>
 				</div>
 				<a class="waves-effect waves-light btn blue right " id="submit">
 					<i class="material-icons left">send</i>Done</a>
@@ -127,8 +150,14 @@
 	</center>
 	</div>
 	<script>
+<<<<<<< HEAD
 		$(document).ready(function() {
 			$('#source').change(function() {
+=======
+		$(document).ready(function () {
+			var textBoxCount = 1;
+			$('#source').change(function () {
+>>>>>>> 2144617921a89d53aae011915912b1b555940c9e
 				var z = $(this);
 				var state = z.val();
 				// FETCH
@@ -159,11 +188,20 @@
 				var per = $('#myRange').val();
 				var language = $('#lang').val();
 				var emergency = $('#emerg').val();
+<<<<<<< HEAD
 				var mobile_no = localStorage.getItem("mobile_no");
+=======
+				var emergency2 = $('#emerg2').val();
+				var emergency3 = $('#emerg3').val();
+
+				var email = "user@g.com";
+
+>>>>>>> 2144617921a89d53aae011915912b1b555940c9e
 				console.log(dam_name);
 				$.ajax({
 					type: 'post',
 					url: 'http://occasionz.in/damit/signUp2.php',
+<<<<<<< HEAD
 					data: {
 						email: email,
 						language: language,
@@ -172,14 +210,45 @@
 						mobile_no: mobile_no
 					},
 					success: function(response) {
+=======
+					data: { email: email, language: language, emergency: emergency, dam_name: dam_name, emergency2: emergency2, emergency3: emergency3 },
+					success: function (response) {
+>>>>>>> 2144617921a89d53aae011915912b1b555940c9e
 						console.log(response);
 					}
 				});
+			});
+
+
+
+			$('#numberAdder').click(function () {
+				if (textBoxCount < 3) {
+					console.log(textBoxCount);
+					$('#emerg' + textBoxCount).css("display", "block");
+					textBoxCount += 1;
+				}
+				if (textBoxCount == 3) {
+					$('#numberAdder').attr("disabled", "disabled");
+				}
+			});
+
+			$('#numberAdder1').click(function () {
+				$('#emerg1').css("display", "none");
+				textBoxCount = textBoxCount - 1;
+				$('#emergText1').val("");
 			})
+			$('#numberAdder2').click(function () {
+				$('#emerg2').css("display", "none");
+				textBoxCount = textBoxCount - 1;
+				$('#emergText2').val("");
+				$('#numberAdder').removeAttr("disabled");
+			})
+
 
 
 		});
 	</script>
+
 </body>
 
 </html>
