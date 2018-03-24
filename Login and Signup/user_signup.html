@@ -153,11 +153,9 @@
 <<<<<<< HEAD
 		$(document).ready(function() {
 			$('#source').change(function() {
-=======
 		$(document).ready(function () {
 			var textBoxCount = 1;
 			$('#source').change(function () {
->>>>>>> 2144617921a89d53aae011915912b1b555940c9e
 				var z = $(this);
 				var state = z.val();
 				// FETCH
@@ -188,20 +186,20 @@
 				var per = $('#myRange').val();
 				var language = $('#lang').val();
 				var emergency = $('#emerg').val();
-<<<<<<< HEAD
+
 				var mobile_no = localStorage.getItem("mobile_no");
-=======
+
 				var emergency2 = $('#emerg2').val();
 				var emergency3 = $('#emerg3').val();
 
 				var email = "user@g.com";
 
->>>>>>> 2144617921a89d53aae011915912b1b555940c9e
+
 				console.log(dam_name);
 				$.ajax({
 					type: 'post',
 					url: 'http://occasionz.in/damit/signUp2.php',
-<<<<<<< HEAD
+
 					data: {
 						email: email,
 						language: language,
@@ -210,10 +208,9 @@
 						mobile_no: mobile_no
 					},
 					success: function(response) {
-=======
+
 					data: { email: email, language: language, emergency: emergency, dam_name: dam_name, emergency2: emergency2, emergency3: emergency3 },
 					success: function (response) {
->>>>>>> 2144617921a89d53aae011915912b1b555940c9e
 						console.log(response);
 					}
 				});
