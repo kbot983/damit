@@ -9,7 +9,7 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$('select').material_select();
 		});
 	</script>
@@ -150,9 +150,6 @@
 	</center>
 	</div>
 	<script>
-<<<<<<< HEAD
-		$(document).ready(function() {
-			$('#source').change(function() {
 		$(document).ready(function () {
 			var textBoxCount = 1;
 			$('#source').change(function () {
@@ -163,10 +160,8 @@
 					type: 'post',
 					url: 'http://occasionz.in/damit/simulation/simulation_dam.php',
 					async: false,
-					data: {
-						state_name: state
-					},
-					success: function(response) {
+					data: { state_name: state },
+					success: function (response) {
 						$('.suboption').detach();
 						b = JSON.parse(response);
 						b.forEach(e => {
@@ -181,34 +176,20 @@
 
 			});
 
-			$("#submit").click(function() {
+			$("#submit").click(function () {
 				var dam_name = $('#status').val();
 				var per = $('#myRange').val();
 				var language = $('#lang').val();
 				var emergency = $('#emerg').val();
-
-				var mobile_no = localStorage.getItem("mobile_no");
-
 				var emergency2 = $('#emerg2').val();
 				var emergency3 = $('#emerg3').val();
 
 				var email = "user@g.com";
 
-
 				console.log(dam_name);
 				$.ajax({
 					type: 'post',
 					url: 'http://occasionz.in/damit/signUp2.php',
-
-					data: {
-						email: email,
-						language: language,
-						emergency: emergency,
-						dam_name: dam_name,
-						mobile_no: mobile_no
-					},
-					success: function(response) {
-
 					data: { email: email, language: language, emergency: emergency, dam_name: dam_name, emergency2: emergency2, emergency3: emergency3 },
 					success: function (response) {
 						console.log(response);
@@ -244,6 +225,7 @@
 
 
 		});
+
 	</script>
 
 </body>
