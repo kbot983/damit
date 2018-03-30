@@ -15,7 +15,7 @@
 
 	<link rel="icon" type="image/gif" sizes="16x16" href="./favicon.ico">
 
-	<script> 
+	<script>
 		$(document).ready(function () {
 			$('select').material_select();
 			$('.modal').modal();
@@ -153,16 +153,16 @@
 									<!--  *******************  SVG END ***********************-->
 
 									<div id="WaterReleased`+ element["dam_id"] + `">
-										Water Released: 
+										Water Released:
 									</div>
 									<br>
 									Approved By:
 									<div id="ApprovedBy`+ element["dam_id"] + `" class="chip">
 									</div>
 									<br>
-									<br> 
+									<br>
 									<div id="Notified`+ element["dam_id"] + `">
-										Users Notified: 
+										Users Notified:
 									</div>
 									<br> Users Engaged : 83,46,238
 									<br>
@@ -176,7 +176,7 @@
 			</div>
 						`);
 									$('.modal').modal();
-									// THE SET OF MODALS 
+									// THE SET OF MODALS
 									$("#openModal" + element["dam_id"]).click(function () {
 										$('#modal' + element["dam_id"]).modal('open');
 										var dam_id = element["dam_id"];
@@ -255,7 +255,7 @@
 															var morePoints = JSON.parse(response);
 															console.log(morePoints);
 															$('#WaterReleased' + element["dam_id"]).text("Water Released: " + morePoints["date"]);
-															$('#ApprovedBy' + element["dam_id"]).text(morePoints["name"]); // IMAGE???? ADD IT 
+															$('#ApprovedBy' + element["dam_id"]).text(morePoints["name"]); // IMAGE???? ADD IT
 															$('#Notified' + element["dam_id"]).text("Users Notified: " + morePoints["sent_count"]);
 														}
 													});
@@ -341,7 +341,7 @@
 <script>
 		function fillwater(fillno, dam_id, showTextContainerId) {
 			console.log(fillno);
-			
+
 			var water = document.getElementById("water" + dam_id);
 			var percent = 0;
 			var interval;
