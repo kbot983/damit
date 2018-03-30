@@ -28,13 +28,15 @@
 
 
 
-
-
-
+.modal .modal-content
+{
+    padding:2px;
+}
 
         .modalBack{
             background-image:url(../img/j3.jpeg);
             background-size: cover;
+
         }
 
         .card{
@@ -202,3 +204,10 @@
                 height:13%;
                 width:30%;
             }
+            .card .card-content
+            {
+                padding-top: 32%;
+                padding-bottom:32% ;
+                padding-left: 15%;
+            }
+
