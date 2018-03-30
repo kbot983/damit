@@ -36,11 +36,20 @@
 	</nav>
 	<br>
 	<div class="row shortRow">
-		<div class="input-field col l8  s12">
+		<div class="input-field col l8  s10">
 			<i class="material-icons prefix ">search</i>
 			<input id="icon_prefix autocomplete-input" type="text" data-ref="input-search" class="validate autocomplete">
 			<label for="icon_prefix">Search</label>
 		</div>
+		<div class="input-field col l3 s12 ">
+		    <select>
+			<option value="1" disabled selected>Recently Opened</option>
+			<option value="2">Unopened</option>
+			<option value="3">High - Low</option>
+			<option value="4">Low - High</option>
+			</select>
+			<label>Sort By</label>
+			</div> 
 	</div>
 
 	<div class="searchboxy" data-ref="container">
@@ -58,9 +67,10 @@
 								var a = JSON.parse(response);
 								console.log(a);
 								a.forEach(element => {
-									$('.rower').append(`<div class="col l3"><div class="mix ` + element["name"].toLowerCase() + `">
+									$('.rower').append(`<div class="col l3 s12"><div class="mix ` + element["name"].toLowerCase() + `">
 				<div class="card-panel center" id="openModal` + element["dam_id"] + `">
 					<h5> ` + element["name"] + `</h5>
+					<center>
 					<div class="speedbox" id="meter">
 						<div class="speedbox__score" id="speedbox-score` + element["dam_id"] + `"></div>
 						<div class="speedbox__groove"></div>
@@ -71,6 +81,7 @@
 							<h5>` + element["percentage"] + `%</h5>
 						</div>
 					</div>
+					</center>
 				</div>
 </div>
 			</div>`);
@@ -111,13 +122,14 @@
 					<div class="row ">
 						<div class="col l9 s12">
 							<div class="card ">
-								<canvas id="line-chart`+ element["dam_id"] + `"></canvas>
-								<br>
+							<div class="container">
+								<canvas id="line-chart`+ element["dam_id"] + `" height="100%" width="100%"></canvas>
+							</div>	
 							</div>
 						</div>
-						<div class="col l3">
+						<div class="col l3 s12">
 							<div class="card ">
-								<div class="card-content ">
+								<div class="card-content" id="svgcenter">
 									<br>
 									<br>
 									<!--  *******************  SVG START ***********************-->
@@ -129,7 +141,7 @@
 											<path d="M140,20c-21.5-0.4-38.8-2.5-51.1-4.5c-13.4-2.2-26.5-5.2-27.3-5.4C46,6.5,42,4.7,31.5,2.7C24.3,1.4,13.6-0.1,0,0c0,0,0,0,0,0l0,20H140z"></path>
 										</symbol>
 									</svg>
-									<div class="circle modalad">
+									<div class="circle modalad" >
 										<div class="liquid" id="Counter">
 											<label id="waterLevelDenoter`+ element["dam_id"] + `"></label>
 											<label>%</label>
